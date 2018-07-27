@@ -97,6 +97,9 @@
     // A valid Python strftime string
     "jekyll_datetime_format": "%Y-%m-%d %H:%M:%S",
 
+    // a valid Python strftime string for jekyll post/draft file name prefix datetime format
+    "jekyll_title_datetime_format": "%Y-%m-%d-%H-%M",
+
     // ************************************************************************************
     // Package Debug
     // ************************************************************************************

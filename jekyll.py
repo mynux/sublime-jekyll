@@ -211,7 +211,7 @@ def find_dir_path(window, dir_name):
     return all_dirs
 
 
-def clean_title_input(title, draft=False):
+def clean_title_input(self, title, draft=False):
     """Convert a string into a valide Jekyll filename.
 
     Remove non-word characters, replace spaces and underscores with dashes,
@@ -229,10 +229,15 @@ def clean_title_input(title, draft=False):
     title_clean = re.sub(r'[^\w -]', '', title_clean)
     title_clean = re.sub(r' |_', '-', title_clean)
 
+    title_datetime_format = get_setting(self.window.active_view(), 'jekyll_title_datetime_format', '%Y-%m-%d')
     today = datetime.today()
-    title_date = today.strftime('%Y-%m-%d')
+    title_date = today.strftime(title_datetime_format)
+    if title_clean:
+        title_suffix = '-' + title_clean
+    else:
+        title_suffix = ''
 
-    return title_date + '-' + title_clean if not draft else title_clean
+    return title_date + title_suffix if not draft else title_clean
 
 
 def create_file(path):
@@ -421,7 +426,7 @@ class JekyllWindowBase(sublime_plugin.WindowCommand):
         else:
             file_ext = self.extension
 
-        clean_title = clean_title_input(title, self.IS_DRAFT) + file_ext
+        clean_title = clean_title_input(self, title, self.IS_DRAFT) + file_ext
         full_path = os.path.join(post_dir, clean_title)
 
         if os.path.lexists(full_path):
@@ -572,7 +577,7 @@ class JekyllTemplateBase(JekyllWindowBase):
         if not os.path.exists(template_dir):
             os.makedirs(template_dir)
 
-        clean_title = clean_title_input(title, True)
+        clean_title = clean_title_input(self, title, True)
         full_path = os.path.join(template_dir, clean_title + '.yaml')
 
         if os.path.lexists(full_path):
@@ -614,7 +619,7 @@ class JekyllFromTemplateBase(JekyllTemplateBase):
         else:
             file_ext = self.extension
 
-        clean_title = clean_title_input(title, self.IS_DRAFT) + file_ext
+        clean_title = clean_title_input(self, title, self.IS_DRAFT) + file_ext
         full_path = os.path.join(post_dir, clean_title)
 
         if os.path.lexists(full_path):
