@@ -391,8 +391,12 @@ class JekyllWindowBase(sublime_plugin.WindowCommand):
         ).format(comment=str(comment), title=str(title))
         frontmatter += (
             'layout: ${1:post}\n'
-            '---\n$0'
         )
+        frontmatter += (
+            'date: {date}\n'
+            '---\n$0'
+        ).format(date=datetime.today())
+
         return frontmatter
 
 

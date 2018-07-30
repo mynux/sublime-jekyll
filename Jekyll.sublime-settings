@@ -46,7 +46,7 @@
     // you can optionally have sublime-jekyll look for the `_posts` or `_drafts`
     // or `uploads` folders open in your sidebar. This should have a value of 
     // true or false.
-    "jekyll_auto_find_paths": false,
+    "jekyll_auto_find_paths": true,
 
     // This should point to the default uploads directory.
     // NOTE: This should be an absolute path. Also, the path should
@@ -105,7 +105,7 @@
     // ************************************************************************************
     
     // If set to true, will print Jekyll debug information to the Sublime Text console.
-    "jekyll_debug": false,
+    "jekyll_debug": true,
 
     // If set to true, all Jekyll Utility commands will be hidden from menus and the Command Palatte.
     "jekyll_utility_disable": false
